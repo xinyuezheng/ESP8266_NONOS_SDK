@@ -1,0 +1,7 @@
+*.o
+*.a
+at_espconn/.output/
+at_espconn/user/.output/
+at_espconn/user/secret.h
+bin/upgrade/
+

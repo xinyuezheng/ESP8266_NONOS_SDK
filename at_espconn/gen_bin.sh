@@ -1,0 +1,3 @@
+#!/bin/bash
+
+make COMPILE=gcc BOOT=new APP=1 SPI_SPEED=40 SPI_MODE=DOUT SPI_SIZE_MAP=2

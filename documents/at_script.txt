@@ -1,0 +1,49 @@
+sudo picocom -b 115200 --omap crcrlf -r -l /dev/ttyUSB0
+AT+GMR
+#Lists available APs.
+AT+CWLAP
+
+#Operating Mode: 1-Client, 2-access point
+AT+CWMODE=1
+#Join network <ssid>,<pwd>
+AT+CWJAP="ssid","pwd"
+#Show assigned IP address when connected to network
+AT+CIFSR
+#Connect to socket server <type>,<addr>,<port>
+AT+CIPSTART="UDP","192.168.0.12",3456
+AT+CIPSEND=<len>
+nc -u -l -p 3456
+#write to flash
+Ground GPIO0 (UART Download mode)
+./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ../../ESP8266_NONOS_SDK/bin/upgrade/user1.1024.new.2.bin 
+#read from flash
+./esptool.py read_flash 0 1048576 testcmp.bin
+#In case permission denied 
+sudo chown .dialout /var/lock
+
+7.4.2 espconn Structures
+
+ProjectROOT: ESP8266_NONOS_SDK-2.1.0
+
+cp ESP8266_NONOS_SDK-2.1.0/example/at to ESP8266_NONOS_SDK-2.1.0/at
+chmod +x ./gen_misc.sh
+choose: boot_v1.2+ (use ESP8266_NONOS_SDK-2.1.0/bin/boot_v1.7)
+
+choose: user1.bin
+choose: spi speed 40MHz
+choose: spi mode DOUT
+choose: spi size (512+412KB)
+Generate user1.1024.new.2.bin successully in folder bin/upgrade
+boot.bin (bin)------------>0x00000
+user1.1024.new.2.bin(bin/upgrade)--->0x01000
+
+#https://github.com/pfalcon/esp-open-sdk
+#toolchain must be included in the PATH
+esp-open-sdk/xtensa-lx106-elf/bin/
+
+
+https://espressif.com/en/support/download/documents
+https://espressif.com/en/support/download/sdks-demos
+(https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v2.1.0)
+
+AT+CIPSTATUS Gets the connection status
