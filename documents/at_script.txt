@@ -15,7 +15,7 @@ AT+CIPSEND=<len>
 nc -u -l -p 3456
 #write to flash
 Ground GPIO0 (UART Download mode)
-./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ../../ESP8266_NONOS_SDK/bin/upgrade/user1.1024.new.2.bin 
+./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ../../ESP8266_NONOS_SDK/bin/upgrade/user1.1024.new.2.bin 
 #read from flash
 ./esptool.py read_flash 0 1048576 testcmp.bin
 #In case permission denied 
