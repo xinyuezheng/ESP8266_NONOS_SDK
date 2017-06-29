@@ -4,6 +4,7 @@ AT+GMR
 AT+CWLAP
 
 #Operating Mode: 1-Client, 2-access point
+AT+CWMODE?
 AT+CWMODE=1
 #Join network <ssid>,<pwd>
 AT+CWJAP="ssid","pwd"
@@ -15,7 +16,9 @@ AT+CIPSEND=<len>
 nc -u -l -p 3456
 #write to flash
 Ground GPIO0 (UART Download mode)
-./esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 ../../ESP8266_NONOS_SDK/bin/upgrade/user1.1024.new.2.bin 
+
+esptool.py --port /dev/ttyUSB0 --baud 115200 write_flash --flash_freq 40m --flash_mode dout --verify  0 bin/boot_v1.7 0x1000 bin/upgrade/user1.1024.new.2.bin 
+
 #read from flash
 ./esptool.py read_flash 0 1048576 testcmp.bin
 #In case permission denied 
@@ -46,4 +49,12 @@ https://espressif.com/en/support/download/documents
 https://espressif.com/en/support/download/sdks-demos
 (https://github.com/espressif/ESP8266_NONOS_SDK/releases/tag/v2.1.0)
 
-AT+CIPSTATUS Gets the connection status
+Gets the connection status
+AT+CIPSTATUS
+
+AT+CIPMUX=1
+AT+CIPSTART=<type>,<remote IP>,<remote port>[,(<UDP local port>),(<UDP mode>)]
+AT+CIPSTART="UDP","192.168.101.110",1000,1002,2
+
+#join dialout group for ttyUSB0
+sudo usermod -a -G dialout $USER
